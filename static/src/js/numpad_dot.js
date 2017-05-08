@@ -19,7 +19,7 @@ core.form_widget_registry.get('float').include({
             //Cancel the keypress
             e.preventDefault();
             // Add the comma to the value of the input field
-            if(this.el.firstElementChild.value.slice(-1)!=','){
+            if(this.$el.find("input")[0].value.slice(-1)!=','){
                 this.$("input").val(this.$("input").val() + ',');
             }
          }
