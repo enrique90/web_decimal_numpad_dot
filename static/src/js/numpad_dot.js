@@ -10,7 +10,10 @@ core.form_widget_registry.get('float').include({
     render_value: function() {
         var self = this;
         this._super();
-        if (!this.get('readonly')){
+        if (!this.$el.find('input').context){
+            this.$el.on('keypress', this.floatKeypress.bind(this));
+        }
+        else{
             this.$el.find('input').on('keypress', this.floatKeypress.bind(this));
         }
     },
@@ -19,8 +22,16 @@ core.form_widget_registry.get('float').include({
             //Cancel the keypress
             e.preventDefault();
             // Add the comma to the value of the input field
-            if(this.$el.find("input")[0].value.slice(-1)!=','){
-                this.$("input").val(this.$("input").val() + ',');
+            if (this.$el.find('input').length){
+                if(this.$el.find("input")[0].value.slice(-1)!=','){
+                    this.$("input").val(this.$("input").val() + ',');
+                }
+            }
+            else{
+
+                if(this.$el[0].value.slice(-1)!=','){
+                    this.$input.val(this.$input.val() + ',');
+                }
             }
          }
 },
